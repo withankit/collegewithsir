@@ -1,68 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My First Website</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: yellow;
-        }
-        section {
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
+import pygame
+import random
+import sys
 
-<header>
-    <h1>Welcome to My Website</h1>
-    <p>This is my simple HTML website</p>
-</header>
+# Initialize pygame
+pygame.init()
 
-<nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-</nav>
+# Screen size
+WIDTH = 600
+HEIGHT = 400
+BLOCK = 20
 
-<section>
-    <h2>About Us</h2>
-    <p>This website is created using only HTML and CSS.</p>
-    <button onclick="alert('Thank You for Visiting!')">Click Me</button>
-</section>
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Snake Game")
 
-<footer>
-    <p>© 2026 My Website | All Rights Reserved</p>
-</footer>
+# Colors
+white = (255, 255, 255)
+black = (0, 0, 0)
+green = (0, 255, 0)
+red = (255, 0, 0)
 
-</body>
-</html>
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 35)
+
+def draw_snake(snake_list):
+    for block in snake_list:
+        pygame.draw.rect(screen, green, [block[0], block[1], BLOCK, BLOCK])
+
+def message(text, color):
+    msg = font.render(text, True, color)
+    screen.blit(msg, [WIDTH / 6, HEIGHT / 3])
+
+def game():
+    game_over = False
+    game_close = False
+
+    x = WIDTH / 2
+    y = HEIGHT / 2
+
+    x_change = 0
+    y_change = 0
+
+    snake_list = []
